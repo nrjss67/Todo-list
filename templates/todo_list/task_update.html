@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+
+{% block content %}
+<div class="col-md-9 mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-10">
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title mb-0">Edit Task</h2>
+                </div>
+                <div class="card-body">
+                    <form method="post">
+                        {% csrf_token %}
+                        
+                        <div class="mb-3">
+                            <label for="{{ form.content.id_for_label }}" class="form-label">Task Content</label>
+                            {{ form.content|add_class:"form-control" }}
+                            {% if form.content.errors %}
+                            <div class="text-danger">
+                                {{ form.content.errors }}
+                            </div>
+                            {% endif %}
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="{{ form.deadline.id_for_label }}" class="form-label">Deadline</label>
+                            {{ form.deadline|add_class:"form-control" }}
+                            {% if form.deadline.errors %}
+                            <div class="text-danger">
+                                {{ form.deadline.errors }}
+                            </div>
+                            {% endif %}
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="{{ form.tags.id_for_label }}" class="form-label">Tags</label>
+                            {{ form.tags|add_class:"form-select" }}
+                            {% if form.tags.errors %}
+                            <div class="text-danger">
+                                {{ form.tags.errors }}
+                            </div>
+                            {% endif %}
+                        </div>
+
+                        <div class="mb-3">
+                            <div class="form-check">
+                                {{ form.is_done|add_class:"form-check-input" }}
+                                <label class="form-check-label" for="{{ form.is_done.id_for_label }}">
+                                    Mark as completed
+                                </label>
+                            </div>
+                            {% if form.is_done.errors %}
+                            <div class="text-danger">
+                                {{ form.is_done.errors }}
+                            </div>
+                            {% endif %}
+                        </div>
+
+                        <div class="d-flex justify-content-between">
+                            <a href="{% url 'task_list' %}" class="btn btn-secondary">
+                                <i class="fas fa-arrow-left"></i> Back to List
+                            </a>
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-save"></i> Update Task
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
